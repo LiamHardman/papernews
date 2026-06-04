@@ -88,9 +88,13 @@ A few different ways, no special script needed:
   ```
   Stick that two-liner in cron on the host and the device picks it up on
   next sync automatically.
-- **Email-to-device** — if you have a reMarkable Connect subscription, send
-  the PDF as an email attachment to your device's `@my.remarkable.com`
-  address.
+- **[Remailable](https://github.com/remailable/remailable)** — a third-party
+  email-to-reMarkable bridge ([remailable.getneutrality.org](https://remailable.getneutrality.org)).
+  You email the PDF as an attachment to your assigned address and it appears
+  on the device. Useful if your papernews host can `mail`/`mutt` but can't
+  reach the reMarkable directly. (reMarkable has no first-party
+  email-to-device; do not believe earlier versions of this README that
+  implied otherwise.)
 
 No native push is built-in because everyone's setup is different and you
 probably don't want me poking your reMarkable cloud account with your token.
@@ -362,6 +366,14 @@ every ingest pushes the new paper to your device.
 The same pattern works for Kindle (`scp` over USB networking), a network
 printer (`lp -d papernews "$PDF"`), an email (`mutt -a "$PDF"`), or
 anything else you can script.
+
+## Tests
+
+Modest, no-network unittest suite for the web/scheduling/hook behaviour:
+
+```bash
+python -m unittest discover -s tests
+```
 
 ## Local development
 

@@ -2,18 +2,25 @@
 
 ![papernews on a reMarkable, next to a cup of coffee](assets/hero.jpg)
 
-A self-hosted, slow web. Pulls a curated set of feeds every few hours, runs
-them through Claude for cleanup + summarization, and serves the result as a
-single beautifully-typeset LaTeX PDF — designed for an e-ink reader like the
-reMarkable, but it works just as well in your browser's PDF viewer.
+I got tired of opening Hacker News, MacRumors, Quanta, my favourite ML blog
+and my favourite math blog every day — each one a different layout, fonts,
+ads, colors, popups, and an infinite scroll that nudges me to refresh.
+Reading anything seriously meant a context switch every minute and a hit of
+dopamine every other.
 
-The idea: stop refreshing Hacker News, MacRumors, Quanta, your favourite
-ML blog and your favourite math blog separately. Have one PDF appear every
-few hours that contains the new, cleaned-up, English-language version of all
-of it, plus today's quote of the day and a bit of world news.
+**papernews** is the boring fix: a script that pulls all those feeds every
+few hours, has Claude clean up, translate to English, and rewrite the
+article bodies — the **full text**, not just summaries — and renders the
+result as one calm, magazine-style LaTeX PDF. Every article is *in* the PDF
+so you read entirely offline; no clicking through, no opening tabs, no
+following the links unless you actually want to.
 
-**See [`sample-2026-06-04.pdf`](sample-2026-06-04.pdf) for what a real day's
-output looks like.**
+You open it once. When you put it down, you're done for the day.
+
+Designed for an e-ink reader like the reMarkable, but it works just as well
+in any browser's PDF viewer.
+
+**👉 [See `sample-2026-06-04.pdf` for a real day's output.](sample-2026-06-04.pdf)**
 
 ## Status
 

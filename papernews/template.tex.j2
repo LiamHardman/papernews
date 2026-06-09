@@ -124,9 +124,14 @@
 
 \newcommand{\tocsection}[1]{%
   \par\addvspace{1em}%
-  \needspace{4\baselineskip}% keep heading with at least 3 entry lines
+  % NB: deliberately no \needspace here. Inside multicols, \needspace acts on
+  % page-remaining space rather than column-remaining space, so on a dense
+  % cover it triggers a full page break even when the *next column* has plenty
+  % of room — leaving col 2 of the cover empty and orphaning the next source
+  % to its own page. \nobreak below keeps the heading attached to its first
+  % entry, which is the actual concern (orphan section heads).
   \sectionhead{#1}\par
-  \vspace{0.45em}%
+  \nobreak\vspace{0.45em}\nobreak
 }
 
 % Entry: aligned flush with the section heading.

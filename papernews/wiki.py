@@ -44,8 +44,12 @@ def _strip_wiki(s: str) -> str:
     s = re.sub(r"\[\[([^\]]+)\]\]", r"\1", s)              # [[a]] → a
     s = re.sub(r"'''([^']+)'''", r"\1", s)                  # '''bold''' → bold
     s = re.sub(r"''([^']+)''", r"\1", s)                    # ''italics'' → italics
-    s = re.sub(r"<[^>]+>", "", s)                           # any tags
-    return s.strip()
+    # Tags → space so `moon<br/>Under` doesn't glue into `moonUnder`.
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    # The cover template wraps the quote in `` … '' itself; trim any leading
+    # or trailing quotation marks from the source so we don't get doubled.
+    return s.strip("\"'“”‘’").strip()
 
 
 def fetch_quote_of_day(

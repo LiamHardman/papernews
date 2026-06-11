@@ -12,6 +12,8 @@ def chat(system: str, user: str, max_tokens: int) -> str:
     benefits from bytes-flowing keepalive through any reverse proxy."""
     if _BACKEND == "ollama":
         return _ollama(system, user, max_tokens)
+    if _BACKEND == "gemini":
+        return _gemini(system, user, max_tokens)
     return _anthropic(system, user, max_tokens)
 
 
@@ -27,6 +29,27 @@ def _anthropic(system: str, user: str, max_tokens: int) -> str:
     ) as stream:
         final = stream.get_final_message()
     return final.content[0].text
+
+
+def _gemini(system: str, user: str, max_tokens: int) -> str:
+    from google import genai
+    from google.genai import types
+
+    api_key = os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
+    model = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
+    client = genai.Client(api_key=api_key)
+    parts: list[str] = []
+    for chunk in client.models.generate_content_stream(
+        model=model,
+        contents=user,
+        config=types.GenerateContentConfig(
+            system_instruction=system,
+            max_output_tokens=max_tokens,
+        ),
+    ):
+        if chunk.text:
+            parts.append(chunk.text)
+    return "".join(parts)
 
 
 def _ollama(system: str, user: str, max_tokens: int) -> str:

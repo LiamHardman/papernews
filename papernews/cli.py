@@ -49,7 +49,10 @@ def cmd_gather(store: Store, sources: list[dict]) -> int:
                     min_points=src.get("min_points", 50),
                 )
             elif kind == "rss":
-                items = fetch_rss(name, src["url"], limit=limit)
+                items = fetch_rss(
+                    name, src["url"], limit=limit,
+                    since_hours=src.get("since_hours"),
+                )
             elif kind == "wikipedia_events":
                 items = fetch_wikipedia_events(
                     source_name=name,

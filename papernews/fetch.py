@@ -43,7 +43,7 @@ def fetch_hn(
     since = int(time.time() - since_hours * 3600)
     params = {
         "tags": "story",
-        "numericFilters": f"created_at_i>{since},points>{min_points}",
+        "numericFilters": [f"created_at_i>{since}", f"points>{min_points}"],
         "hitsPerPage": 100,
     }
     r = requests.get(_HN_SEARCH, params=params, timeout=15)
